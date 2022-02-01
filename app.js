@@ -1,13 +1,13 @@
-require('dotenv').config();
+require('dotenv').config(); // Loads environment variables from .env file
 
 // imports
-const express = require('express');
+const express = require('express'); // Imports come first in Node.js
 const dbConnection = require('./db');
 const controllers  = require('./controllers');
 const middleware = require('./middleware');
 
 // instantiation
-const app = express();
+const app = express(); 
 
 // middleware
 app.use(middleware.CORS);
@@ -23,7 +23,7 @@ app.use('/comments', controllers.commentscontroller);
 try {
     dbConnection
         .authenticate()
-        .then(async () => await dbConnection.sync(/*  {force: true} */)) // force: true will drop all tables in pgAdmin and resync them. This is necessary after you make a change to a model, and need to sync any new table headers to the database.
+.then(async () => await dbConnection.sync({/*force: true*/})) // force: true will drop all tables in pgAdmin and resync them. This is necessary after you make a change to a model, and need to sync any new table headers to the database.
         .then(() => {
             app.listen(process.env.PORT, () => {
                 console.log(`[SERVER]: App is listening on ${process.env.PORT}`);
